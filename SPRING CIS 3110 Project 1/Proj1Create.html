@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" ng-app="cookieMonster">
+
+<head>
+  <meta charset="utf-8">
+  <title>PROJECT 1</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-sanitize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ngx-cookie-service@12.1.2@ngx-cookie-service/bundles/ngx-cookie-service.umd.min.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-controller="CookieMaker">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          </li>
+         <li><a class="dropdown-item" href="Proj1Welcome.html">Welcome</a></li>
+          <li><a class="dropdown-item" href="Proj1AboutUs.html">About Us</a></li>
+          <li><a class="dropdown-item" href="Proj1Information.html">Information</a></li>
+          <li><a class="dropdown-item" href="Proj1AccountSettings.html">Account Settings</a></li>
+          <li><a class="dropdown-item" href="Proj1AccountDetails.html">Account Details</a></li>
+          <li><a class="dropdown-item" href="Proj1Create.html">Create your account</a></li>
+          <li><a class="dropdown-item" href="authentication.html">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <script type="text/javascript">
+    var app = angular.module('cookieMonster', ['ngCookies']);
+
+    app.controller('CookieMaker', function ($scope, $window, $cookies) {
+      $scope.SetCookies = function () {
+        $cookies.put('firstName', $scope.firstName);
+        $cookies.put('lastName', $scope.lastName);
+        $cookies.put('email', $scope.email);
+        $cookies.put('password', $scope.password);
+        $cookies.put('address1', $scope.address1);
+        $cookies.put('city', $scope.city);
+        $cookies.put('State', $scope.State);
+      };
+
+      $scope.GetCookies = function () {
+        $window.alert(
+          'firstName: ' + $cookies.get('firstName') +
+          '\nlastName: ' + $cookies.get('lastName') +
+          '\nemail: ' + $cookies.get('email') +
+          '\npassword: ' + $cookies.get('password') +
+          '\naddress1: ' + $cookies.get('address1') +
+          '\ncity: ' + $cookies.get('city') +
+          '\nState: ' + $cookies.get('State')
+        );
+      };
+
+      $scope.ClearCookies = function () {
+        $cookies.remove('firstName');
+        $cookies.remove('lastName');
+        $cookies.remove('email');
+        $cookies.remove('password');
+        $cookies.remove('address1');
+        $cookies.remove('city');
+        $cookies.remove('State');
+      };
+    });
+  </script>
+  <h2>Create your account here!</h2>
+
+  <form>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="firstname">First Name:</label><br>
+        <input type="text" class="form-control" ng-model="firstName" placeholder="First name">
+        <p>First Name: {{firstName}}</p>
+      </div>
+      <div class="col-md-4">
+        <label for="lastname">Last Name:</label><br>
+        <input type="text" class="form-control" ng-model="lastName" placeholder="Last name">
+        <p>Last Name: {{lastName}}</p>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputEmail">Email:</label>
+        <input type="email" class="form-control" ng-model="email" placeholder="email@example.com">
+        <p>Email: {{email}}</p>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputPassword">Password:</label>
+        <input type="password" class="form-control" ng-model="password" placeholder="Password">
+        <p>Password: {{password}}</p>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+          A password that is 8-20 characters long (No spaces or special characters)
+        </small>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputAddress">Address:</label>
+      <input type="text" class="form-control" ng-model="address1" placeholder="1234 Main St">
+      <p>Address: {{address1}}</p>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="inputCity">City:</label>
+        <input type="text" class="form-control" ng-model="city" placeholder="City">
+        <p>City: {{city}}</p>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputState">State:</label>
+        <select class="custom-select d-block w-100" id="inputState" class="form-control" ng-model="State">
+          <option selected>Choose...</option>
+          <option>California</option>
+          <option>New York</option>
+          <option>Florida</option>
+          <option>Texas</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="SetCookies()">Create account</button>
+    <button type="button" class="btn btn-secondary" ng-click="GetCookies()">Get Cookies</button>
+    <button type="button" class="btn btn-danger" ng-click="ClearCookies()">Clear Cookies</button>
+  </form>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
